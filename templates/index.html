@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="container-fluid">
+    <h3 class="m-4">All Application</h3>
+    <div class="row">
+        <div class="col-12">
+            {% if Bankinfos %}
+            <div class="card bg-light mb-4 ms-4 me-4">
+                <div class="card-header"><i class="fa-solid fa-list fg-lg"></i> Customer Bank Application Records</div>
+                <div class="card-body">
+                  <h4 class="card-title"></h4>
+                  <p class="card-text">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                              <tr>
+                                <th scope="col">Application Number</th>
+                                <th scope="col">First Name</th>
+                                <th scope="col">Middle Name</th>
+                                <th scope="col">Last Name</th>
+                                <th scope="col">Address </th>
+                                <th scope="col">Address</th>
+                                <th scope="col">City</th>
+                                <th scope="col">State</th>
+                                <th scope="col">Zip Code</th>
+                                <th scope="col">phone</th>
+                                <th scope="col">Gender</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Date Of Birth</th>
+                                <th scope="col">Social Number</th>
+                                <th scope="col">Passport Number</th>
+                                <th scope="col">Account Type</th>
+                                <th scope="col">Nominee Name</th>
+                                <th scope="col">Actions</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                {% for Bankinfo  in Bankinfos %}
+                                <tr>
+                                    <td>{{Bankinfo.bank_id}}</td>
+                                    <td>{{Bankinfo.first_name}}</td>
+                                    <td>{{Bankinfo.middle_name}}</td>
+                                    <td>{{Bankinfo.last_name}}</td>
+                                    <td>{{Bankinfo.address_1}}</td>
+                                    <td>{{Bankinfo.address_2}}</td>
+                                    <td>{{Bankinfo.city}}</td>
+                                    <td>{{Bankinfo.state}}</td>
+                                    <td>{{Bankinfo.zip_code}}</td>
+                                    <td>{{Bankinfo.phone}}</td>
+                                    <td>{{Bankinfo.gender}}</td>
+                                    <td>{{Bankinfo.email}}</td>
+                                    <td>{{Bankinfo.date_of_birth}}</td>
+                                    <td>{{Bankinfo.social_number}}</td>
+                                    <td>{{Bankinfo.passport_no}}</td>
+                                    <td>{{Bankinfo.account_type}}</td>
+                                    <td>{{Bankinfo.nominee_name}}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-success me-1" href="{% url 'view_bankinfo' Bankinfo.id %}" data-toggle="modal" data-target='#myModal{{Bankinfo.id}}'>
+                                            <i class="fa-solid fa-circle-info"></i>
+                                        </button>
+                                        <div class="modal" id="myModal{{Bankinfo.id}}" tabindex="-1" ariatabelledby="myModalLabel1" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                              <div class="modal-content">
+                                                <div class="modal-header">
+                                                  <h5 class="modal-title">Applicant Name : {{Bankinfo.first_name}} {{Bankinfo.last_name}}</h5>
+                                                  <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true"></span>
+                                                  </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                  <ul class="list-unstyled">
+                                                    <li>Application Number: <strong> {{Bankinfo.bank_id}}</strong></li>
+                                                    <li>First Name: <strong> {{Bankinfo.first_name}}</strong></li>
+                                                    <li>Middel Name: <strong> {{Bankinfo.middle_name}}</strong></li>
+                                                    <li>Last Name: <strong> {{Bankinfo.last_name}}</strong></li>
+                                                    <li>Address 1: <strong> {{Bankinfo.address_1}}</strong></li>
+                                                    <li>Address 2: <strong> {{Bankinfo.address_2}}</strong></li>
+                                                    <li>City: <strong> {{Bankinfo.city}}</strong></li>
+                                                    <li>State: <strong> {{Bankinfo.state}}</strong></li>
+                                                    <li>Zip Code: <strong> {{Bankinfo.zip_code}}</strong></li>
+                                                    <li>Phone: <strong> {{Bankinfo.phone}}</strong></li>
+                                                    <li>Gender: <strong> {{Bankinfo.gender}}</strong></li>
+                                                    <li>Email: <strong> {{Bankinfo.email}}</strong></li>
+                                                    <li>Date Of Birth: <strong> {{Bankinfo.date_of_birth}}</strong></li>
+                                                    <li>Social Number: <strong> {{Bankinfo.social_number}}</strong></li>
+                                                    <li>Passport Number: <strong> {{Bankinfo.passport_no}}</strong></li>
+                                                    <li>Account Type: <strong> {{Bankinfo.account_type}}</strong></li>
+                                                    <li>Nominee Name: <strong> {{Bankinfo.nominee_name}}</strong></li>
+                                                  </ul>
+                                                </div>
+                                                <div class="modal-footer">
+                                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <a class="btn btn-warning me-1" href="{% url 'edit' Bankinfo.id %}">
+                                            <i class="fa-solid fa-pen-to-square fa-lg"></i>
+                                          </a>
+                                          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete{{Bankinfo.id}}">
+                                            <i class="fa-solid fa-trash-can fa-lg"></i>
+                                          </button>
+                                          <!----   modal delete -->
+                                          <div class="modal" id="delete{{Bankinfo.id}}" tabindex="-1" ariatabelledby="myModalLabel2" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                              <div class="modal-content">
+                                                <div class="modal-header">
+                                                  <h5 class="modal-title">Applicant Name : {{Bankinfo.first_name}} {{Bankinfo.last_name}}</h5>
+                                                  <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true"></span>
+                                                  </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                  <p>Are you sure you want to delete this record ?</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                  <form action="{% url 'delete' Bankinfo.id %}" method="POST">
+                                                    {% csrf_token %}
+                                                    <input type="submit" class="btn btn-primary" value="Delete">
+                                                  </form>
+                                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                    </td>
+                                  </tr>
+                                {%  endfor %}
+                            </tbody>
+                          </table>
+                    </div>
+                  </p>
+                </div>
+            </div>
+            {% else %}
+            <h5 class="alert alert-primary ms-4 me-4"> No Application Records</h5>
+            {% endif %}
+            
+        </div>
+    </div>
+</div>
+{% endblock %}
